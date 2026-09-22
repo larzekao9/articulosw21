@@ -3,10 +3,7 @@
   "version": 2,
   "buildCommand": null,
   "framework": "static",
-  "public": true,
-  "env": [],
   "regions": ["sfo1"],
-  "functions": {},
   "rewrites": [
     {
       "source": "/:path*",
