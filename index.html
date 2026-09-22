@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMEN CINEMA - Artículo</title>
+    <style>
+        :root {
+            --primary: #00ff88;
+            --secondary: #ff006e;
+            --tertiary: #0099ff;
+            --quaternary: #ffbe0b;
+            --dark-bg: #0a0e27;
+            --card-bg: #1a1f3a;
+            --text: #e0e6ff;
+            --text-light: #a8b5ff;
+            --border: #2a3f5f;
+            --glow: #00ff88;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Courier New', 'Segoe UI', monospace;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #0f1229 50%, #1a0a2e 100%);
+            color: var(--text);
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 153, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Animated Background Grid */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(0deg, transparent 24%, rgba(0, 255, 136, 0.05) 25%, rgba(0, 255, 136, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 136, 0.05) 75%, rgba(0, 255, 136, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(0, 153, 255, 0.05) 25%, rgba(0, 153, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 153, 255, 0.05) 75%, rgba(0, 153, 255, 0.05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 1;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        /* Header */
+        header {
+            position: relative;
+            z-index: 10;
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 153, 255, 0.05) 100%);
+            border-bottom: 2px solid rgba(0, 255, 136, 0.3);
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: headerGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes headerGlow {
+            0%, 100% { box-shadow: 0 0 40px rgba(0, 255, 136, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1); }
+            50% { box-shadow: 0 0 60px rgba(0, 255, 136, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15); }
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #00ff88, #0099ff, #ff006e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+            letter-spacing: 2px;
+            animation: textGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes textGlow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.4)); }
+            50% { filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.6)); }
+        }
+
+        header .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--tertiary);
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-shadow: 0 0 20px rgba(0, 153, 255, 0.3);
+        }
+
+        header .author-info {
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            color: var(--text-light);
+        }
+
+        header .author-info div {
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 8px;
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid rgba(0, 255, 136, 0.2);
+            padding: 1rem 2rem;
+            box-shadow: 0 8px 32px rgba(0, 255, 136, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-weight: 700;
+            font-size: 1.3rem;
+            background: linear-gradient(90deg, #00ff88, #0099ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+            text-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--glow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            position: relative;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00ff88, #0099ff);
+            transition: width 0.3s;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .nav-links a:hover {
+            color: var(--glow);
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 4rem;
+            padding: 3rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 120px;
+            height: fit-content;
+        }
+
+        .toc {
+            background: rgba(26, 31, 58, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            box-shadow:
+                0 8px 32px rgba(0, 255, 136, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .toc h3 {
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--glow);
+            text-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            margin-bottom: 0.8rem;
+        }
+
+        .toc a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            padding: 0.6rem 0.8rem;
+            border-left: 3px solid transparent;
+            border-radius: 4px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .toc a::before {
+            content: '▹';
+            position: absolute;
+            left: -5px;
+            color: var(--glow);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .toc a:hover {
+            color: var(--glow);
+            border-left-color: var(--glow);
+            background: rgba(0, 255, 136, 0.1);
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+            padding-left: 1.2rem;
+        }
+
+        .toc a:hover::before {
+            opacity: 1;
+        }
+
+        /* Main Content */
+        .content {
+            position: relative;
+        }
+
+        section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 150px;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #00ff88, #0099ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            border-bottom: 2px solid rgba(0, 255, 136, 0.4);
+            padding-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+            letter-spacing: 1px;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--tertiary);
+            text-shadow: 0 0 15px rgba(0, 153, 255, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            color: var(--text-light);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            background: rgba(26, 31, 58, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 255, 136, 0.1);
+        }
+
+        th {
+            background: linear-gradient(90deg, rgba(0, 255, 136, 0.2), rgba(0, 153, 255, 0.2));
+            color: var(--glow);
+            padding: 1.2rem;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid rgba(0, 255, 136, 0.3);
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+            letter-spacing: 1px;
+        }
+
+        td {
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.15);
+            color: var(--text-light);
+        }
+
+        tr:hover {
+            background: rgba(0, 255, 136, 0.08);
+            box-shadow: inset 0 0 20px rgba(0, 255, 136, 0.1);
+        }
+
+        /* Code Blocks */
+        pre {
+            background: rgba(15, 18, 41, 0.9);
+            border-left: 4px solid var(--glow);
+            padding: 1.5rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 2rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            color: var(--glow);
+            box-shadow:
+                0 8px 32px rgba(0, 255, 136, 0.1),
+                inset 0 1px 0 rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            line-height: 1.7;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+            color: var(--tertiary);
+            font-size: 0.95rem;
+        }
+
+        pre code {
+            color: var(--glow);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        li::marker {
+            color: var(--glow);
+        }
+
+        /* Quote */
+        blockquote {
+            border-left: 4px solid var(--secondary);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 12px 12px 0;
+            background: rgba(255, 0, 110, 0.05);
+            font-style: italic;
+            color: var(--text);
+            box-shadow:
+                0 8px 32px rgba(255, 0, 110, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 0, 110, 0.2);
+            text-shadow: 0 0 15px rgba(255, 0, 110, 0.2);
+        }
+
+        /* References */
+        .references {
+            background: rgba(26, 31, 58, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 2px solid rgba(0, 153, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 153, 255, 0.1);
+        }
+
+        .references ol {
+            margin-left: 1.5rem;
+        }
+
+        .references li {
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(180deg, rgba(26, 31, 58, 0.8) 0%, rgba(10, 14, 39, 0.9) 100%);
+            backdrop-filter: blur(10px);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+            color: var(--text-light);
+            border-top: 2px solid rgba(0, 255, 136, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.8), rgba(0, 153, 255, 0.8));
+            color: var(--dark-bg);
+            border: 2px solid var(--glow);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            box-shadow: 0 0 50px rgba(0, 255, 136, 0.7);
+            transform: translateY(-10px) scale(1.1);
+        }
+
+        /* Highlight */
+        .highlight {
+            background: linear-gradient(90deg, rgba(0, 255, 136, 0.2), rgba(0, 153, 255, 0.1));
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            color: var(--glow);
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 1.5rem;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                gap: 1rem;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(10, 14, 39, 0.98);
+                padding: 1.5rem 2rem;
+                border-bottom: 2px solid rgba(0, 255, 136, 0.2);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            h2 {
+                font-size: 1.7rem;
+            }
+
+            header {
+                padding: 2rem 1rem;
+            }
+
+            header .author-info {
+                gap: 1rem;
+                flex-direction: column;
+            }
+        }
+
+        /* Particle Effect on Scroll */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+
+    <!-- Header -->
+    <header>
+        <h1>🎬 LUMEN CINEMA</h1>
+        <p class="subtitle">⚡ AI PRECISION KIOSK ⚡</p>
+        <p class="subtitle">Sistema de Gestión Cinematográfica con IA Local</p>
+        <div class="author-info">
+            <div>👤 Arze Kao Luis Angel</div>
+            <div>🎓 UAGRM - FICCT</div>
+            <div>📅 2026</div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-brand">▓▒░ LUMEN ░▒▓</div>
+            <button class="nav-toggle" onclick="toggleNav()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#resumen">Resumen</a></li>
+                <li><a href="#tecnologia">Tecnología</a></li>
+                <li><a href="#arquitectura">Arquitectura</a></li>
+                <li><a href="#participacion">Participación</a></li>
+                <li><a href="#conclusion">Conclusión</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar with TOC -->
+        <aside class="sidebar">
+            <div class="toc">
+                <h3>◆ Índice</h3>
+                <ul>
+                    <li><a href="#resumen">❯ Resumen Ejecutivo</a></li>
+                    <li><a href="#tecnologia">❯ Pipeline de Voz</a></li>
+                    <li><a href="#arquitectura">❯ Arquitectura Edge</a></li>
+                    <li><a href="#comparativa">❯ Análisis Comparativo</a></li>
+                    <li><a href="#escenarios">❯ Escenarios</a></li>
+                    <li><a href="#caso-estudio">❯ Caso de Estudio</a></li>
+                    <li><a href="#participacion">❯ Mi Participación</a></li>
+                    <li><a href="#problemas">❯ Problemas</a></li>
+                    <li><a href="#lecciones">❯ Lecciones</a></li>
+                    <li><a href="#conclusion">❯ Conclusiones</a></li>
+                    <li><a href="#referencias">❯ Referencias</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Resumen -->
+            <section id="resumen">
+                <h2>◆ Resumen Ejecutivo y Planteamiento del Problema</h2>
+                <p>La interacción tradicional con sistemas de gestión cinematográfica requiere que los usuarios recorran diferentes interfaces para consultar películas, seleccionar funciones, elegir butacas y completar una compra.</p>
+
+                <p>El proyecto <span class="highlight">LUMEN CINEMA – AI PRECISION KIOSK</span> plantea una alternativa revolucionaria basada en un agente de voz con Inteligencia Artificial local, capaz de interpretar instrucciones expresadas mediante lenguaje natural y conectarlas con las operaciones del sistema cinematográfico.</p>
+
+                <p>La propuesta integra tecnologías de reconocimiento de voz, procesamiento de lenguaje natural, modelos de lenguaje y síntesis de voz, manteniendo la ejecución de las operaciones bajo el control de una arquitectura backend determinista.</p>
+
+                <h3>🔧 Mi Participación</h3>
+                <p>Dentro del proyecto, mi participación se concentra principalmente en el <span class="highlight">desarrollo backend relacionado con el catálogo y la configuración del sistema cinematográfico</span>, trabajando sobre las entidades y operaciones necesarias para administrar películas, salas, precios, cartelera y promociones.</p>
+            </section>
+
+            <!-- Tecnología -->
+            <section id="tecnologia">
+                <h2>◆ Fundamentos Tecnológicos del Pipeline de Voz</h2>
+                <p>El sistema utiliza un pipeline compuesto por diferentes etapas que trabajan en conjunto para procesar la voz del usuario:</p>
+
+                <pre>┌─────────────────────────────────────────────────────────┐
+│                  PIPELINE DE VOZ                         │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  [ 🎤 Micrófono ]                                      │
+│         ↓                                              │
+│  [ 🔍 Silero VAD ]                                     │
+│         ↓                                              │
+│  [ 🗣️  Whisper / faster-whisper ]                      │
+│         ↓                                              │
+│  [ 🧠 Llama / LLM ]                                    │
+│         ↓                                              │
+│  [ ⚙️  Backend / Reglas de negocio ]                  │
+│         ↓                                              │
+│  [ 🔊 Piper ]                                          │
+│         ↓                                              │
+│  [ 📢 Altavoz / Interfaz ]                             │
+│                                                         │
+└─────────────────────────────────────────────────────────┘</pre>
+
+                <h3>◆ 2.1 Detección de Actividad de Voz</h3>
+                <p><strong>Tecnología:</strong> <span class="highlight">Silero VAD</span></p>
+                <p>Su función es determinar cuándo existe actividad de voz y delimitar las intervenciones del usuario, proporcionando un mecanismo eficiente para capturar el audio relevante sin captar ruido de fondo.</p>
+
+                <h3>◆ 2.2 Reconocimiento Automático del Habla</h3>
+                <p><strong>Tecnología:</strong> <span class="highlight">Whisper mediante faster-whisper</span></p>
+                <p>Convierte la señal de audio en texto para posteriormente permitir su interpretación. El proyecto utiliza vocabulario contextual relacionado con el dominio cinematográfico, como películas, entradas, butacas y productos de dulcería.</p>
+
+                <h3>◆ 2.3 Comprensión y Decisión</h3>
+                <p><strong>Tecnología:</strong> <span class="highlight">Llama 3.2</span></p>
+                <p>El modelo interpreta la intención del usuario y determina las herramientas que deben ser utilizadas mediante el patrón <strong>ReAct</strong> y mecanismos de <strong>Tool Calling</strong>.</p>
+
+                <h3>◆ 2.4 Síntesis de Voz</h3>
+                <p><strong>Tecnología:</strong> <span class="highlight">Piper</span></p>
+                <p>Genera la respuesta de audio que será presentada al usuario, manteniendo la comunicación fluida y natural.</p>
+            </section>
+
+            <!-- Arquitectura -->
+            <section id="arquitectura">
+                <h2>◆ Arquitectura Local / Edge</h2>
+                <p>Una característica central del proyecto es el procesamiento local de los componentes de Inteligencia Artificial. Esta decisión de diseño ofrece múltiples ventajas competitivas:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>◆ Criterio</th>
+                            <th>⚡ Procesamiento Local</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>🔐 Privacidad</strong></td>
+                            <td>Los datos pueden mantenerse dentro de la infraestructura local</td>
+                        </tr>
+                        <tr>
+                            <td><strong>🔗 Dependencia</strong></td>
+                            <td>Reduce la dependencia de APIs externas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>⚡ Latencia</strong></td>
+                            <td>Evita depender completamente de la comunicación con servidores externos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>🏗️ Infraestructura</strong></td>
+                            <td>Requiere capacidad de procesamiento local</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>El procesamiento Edge constituye una decisión de diseño orientada a reducir la dependencia de servicios externos y mantener el procesamiento de IA dentro de la infraestructura disponible.</p>
+            </section>
+
+            <!-- Análisis Comparativo -->
+            <section id="comparativa">
+                <h2>◆ Análisis Comparativo de Aplicaciones Existentes</h2>
+                <p>El proyecto considera diferentes soluciones relacionadas con agentes de voz y procesamiento de audio:</p>
+
+                <h3>◈ Buzz / Buzz Captions</h3>
+                <p>Herramienta enfocada principalmente en el reconocimiento de voz mediante Whisper ejecutado localmente.</p>
+
+                <h3>◈ ElevenLabs Conversational AI</h3>
+                <p>Solución que integra reconocimiento de voz, modelos de lenguaje y síntesis de voz mediante infraestructura en la nube.</p>
+
+                <h3>◈ Hume AI</h3>
+                <p>Solución orientada a interfaces conversacionales que incorpora capacidades relacionadas con el análisis emocional.</p>
+
+                <p>En LUMEN CINEMA se priorizan las capacidades necesarias para resolver el flujo transaccional cinematográfico, haciendo énfasis en el procesamiento local y el control determinista de operaciones.</p>
+            </section>
+
+            <!-- Escenarios -->
+            <section id="escenarios">
+                <h2>◆ Evaluación de Escenarios Candidatos</h2>
+                <p>Se analizaron diferentes escenarios de aplicación para determinar el más adecuado:</p>
+
+                <pre>┌────────────────────────────────────────┐
+│     Call Center                        │
+│            ↓                           │
+│     Comida rápida                      │
+│            ↓                           │
+│     Venta de entradas                  │
+│            ↓                           │
+│     ◆ LUMEN CINEMA ◆                  │
+│    (ESCENARIO ÓPTIMO)                  │
+└────────────────────────────────────────┘</pre>
+
+                <p>El caso cinematográfico permite integrar diferentes operaciones dentro de una misma interacción:</p>
+                <ul>
+                    <li>🎬 Consulta de cartelera</li>
+                    <li>🎥 Selección de película</li>
+                    <li>⏰ Selección de horario</li>
+                    <li>🪑 Selección de butacas</li>
+                    <li>🍿 Dulcería</li>
+                    <li>💳 Pago</li>
+                    <li>✅ Confirmación</li>
+                </ul>
+
+                <p><strong>La venta de entradas constituye el escenario principal del caso de estudio.</strong></p>
+            </section>
+
+            <!-- Caso de Estudio -->
+            <section id="caso-estudio">
+                <h2>◆ Caso de Estudio Principal: LUMEN CINEMA</h2>
+
+                <h3>◆ 6.1 Arquitectura de Comunicación</h3>
+                <p>El sistema contempla comunicación bidireccional mediante <span class="highlight">WebSocket</span>, utilizada para transmitir audio y sincronizar la interacción entre el agente y la interfaz en tiempo real.</p>
+
+                <h3>◆ 6.2 Arquitectura de Agente Supervisado</h3>
+                <p>El sistema sigue un principio fundamental:</p>
+
+                <blockquote>
+                    <strong>« El modelo propone, el código decide. »</strong>
+                </blockquote>
+
+                <p>Las operaciones críticas permanecen bajo el control de reglas deterministas. Esto incluye:</p>
+                <ul>
+                    <li>💰 Precios</li>
+                    <li>🪑 Disponibilidad de asientos</li>
+                    <li>🧮 Cálculo de totales</li>
+                    <li>📊 Operaciones transaccionales</li>
+                    <li>✔️ Confirmaciones</li>
+                </ul>
+
+                <p>Antes de ejecutar operaciones que persistan información o generen cobros, se solicita confirmación explícita del usuario.</p>
+
+                <h3>◆ 6.3 Separación de Roles</h3>
+                <p>Las herramientas se encuentran segmentadas según el rol del usuario:</p>
+                <ul>
+                    <li><strong>👥 CLIENTE:</strong> Acceso a consultas, compras y operaciones transaccionales</li>
+                    <li><strong>⚙️ ADMINISTRADOR:</strong> Acceso a configuración, gestión de catálogo y reportes</li>
+                </ul>
+            </section>
+
+            <!-- Participación Técnica -->
+            <section id="participacion">
+                <h2>◆ Participación Técnica de Arze Kao Luis Angel</h2>
+
+                <h3>🔧 Backend – Catálogo y Configuración</h3>
+                <p>Mi participación dentro del proyecto está orientada al backend y específicamente a los componentes relacionados con el catálogo cinematográfico y su configuración.</p>
+
+                <h3>📝 Desarrollo</h3>
+                <p>Las actividades asignadas incluyen:</p>
+                <ul>
+                    <li>🎬 Modelado de entidades <strong>Película</strong></li>
+                    <li>🏢 Modelado de entidades <strong>Sala</strong></li>
+                    <li>💵 Modelado de entidades <strong>Precio</strong></li>
+                    <li>📦 Desarrollo de migraciones</li>
+                    <li>📡 Desarrollo de endpoints CRUD para cartelera</li>
+                    <li>🎁 Desarrollo de endpoints relacionados con promociones</li>
+                    <li>🔗 Asociación entre promociones y funciones</li>
+                </ul>
+
+                <p>Estos componentes proporcionan la estructura backend necesaria para que el sistema pueda administrar y consultar información cinematográfica.</p>
+
+                <h3>🧠 Relación con el Agente de Voz</h3>
+                <p>La Inteligencia Artificial necesita acceder a información real del sistema para responder y ejecutar operaciones correctamente:</p>
+
+                <pre>┌──────────────────────────────────────┐
+│         FLUJO DE DATOS               │
+├──────────────────────────────────────┤
+│ Usuario                              │
+│   ↓                                  │
+│ Agente de voz (ReAct + Tool Calling)│
+│   ↓                                  │
+│ Backend (Lógica de negocio)         │
+│   ↓                                  │
+│ Catálogo (Modelos de datos)         │
+│   ↓                                  │
+│ Base de datos (Persistencia)        │
+│   ↓                                  │
+│ Información real                     │
+│   ↓                                  │
+│ Respuesta al usuario                │
+└──────────────────────────────────────┘</pre>
+
+                <p>De esta manera, el backend actúa como una <span class="highlight">capa de control entre la interpretación realizada por la IA y los datos reales del sistema.</span></p>
+            </section>
+
+            <!-- Problemas y Soluciones -->
+            <section id="problemas">
+                <h2>◆ Problemas Técnicos y Soluciones</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>⚠️ Problema</th>
+                            <th>✅ Solución</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>👻 Transcripciones fantasma</td>
+                            <td>Control de captura y ruido</td>
+                        </tr>
+                        <tr>
+                            <td>🔄 Bucles de reconocimiento</td>
+                            <td>Filtros de repetición</td>
+                        </tr>
+                        <tr>
+                            <td>❓ Confirmaciones ambiguas</td>
+                            <td>Validación de expresiones</td>
+                        </tr>
+                        <tr>
+                            <td>🎬 Nombres de películas incorrectos</td>
+                            <td>Contexto específico para Whisper</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>Estos problemas corresponden a situaciones identificadas durante el desarrollo y las pruebas del sistema de interacción por voz.</p>
+            </section>
+
+            <!-- Lecciones Aprendidas -->
+            <section id="lecciones">
+                <h2>◆ Lecciones Aprendidas y Filosofía de Diseño</h2>
+
+                <h3>◈ 9.1 El modelo propone, el código decide</h3>
+                <p>La IA interpreta el lenguaje natural, pero la ejecución de las operaciones permanece bajo el control del backend. Esta filosofía garantiza que las operaciones críticas se ejecuten de manera segura y predecible.</p>
+
+                <h3>◈ 9.2 La voz debe ser concisa</h3>
+                <p>Las respuestas habladas deben evitar ser excesivamente extensas y utilizar la interfaz visual cuando sea necesario mostrar información detallada. Esto mejora la experiencia del usuario y reduce la carga cognitiva.</p>
+
+                <h3>◈ 9.3 La IA como interfaz</h3>
+                <p>El agente de voz funciona como una nueva interfaz de interacción con el sistema, mientras que las reglas de negocio continúan siendo controladas por el software. Es un complemento, no un reemplazo de las interfaces existentes.</p>
+            </section>
+
+            <!-- Conclusiones -->
+            <section id="conclusion">
+                <h2>◆ Conclusiones</h2>
+                <p>El desarrollo de <strong>LUMEN CINEMA</strong> demuestra la integración de Inteligencia Artificial de voz local con un sistema de gestión cinematográfica de nueva generación.</p>
+
+                <p>Desde mi participación en el backend, el desarrollo del catálogo y la configuración proporciona la estructura necesaria para que las operaciones del sistema trabajen con información organizada y controlada.</p>
+
+                <p>La integración entre <span class="highlight">Inteligencia Artificial, backend y base de datos</span> permite construir una arquitectura en la que el modelo de lenguaje interpreta las solicitudes del usuario, mientras que el sistema de negocio mantiene el control sobre las operaciones reales.</p>
+
+                <p>Este enfoque demuestra que la IA no reemplaza el control determinista del software, sino que lo complementa, creando una experiencia de usuario superior sin sacrificar la seguridad y la integridad de los datos.</p>
+            </section>
+
+            <!-- Referencias -->
+            <section id="referencias">
+                <h2>◆ Referencias Bibliográficas</h2>
+                <div class="references">
+                    <ol>
+                        <li>Radford, A., Kim, J. W., Xu, T., Brockman, G., McLeavey, C., & Sutskever, I. (2022). <em>Robust speech recognition via large-scale weak supervision</em>. arXiv:2212.04356.</li>
+                        <li>SYSTRAN. (2023). <em>faster-whisper: Reimplementation of OpenAI's Whisper model using CTranslate2</em>. GitHub.</li>
+                        <li>Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K., & Cao, Y. (2023). <em>ReAct: Synergizing Reasoning and Acting in Language Models</em>. ICLR.</li>
+                        <li>Rhasspy Project / Hansen, M. (2023). <em>Piper: A fast, local neural text-to-speech system</em>. GitHub.</li>
+                        <li>Silero Team. (2023). <em>Silero VAD: Enterprise-grade Voice Activity Detector</em>. GitHub.</li>
+                        <li>Suarez Burgos, H. (2026). <em>Sin Pantalla, Sin Fila: Un Agente de Voz con Inteligencia Artificial Local para la Venta de Entradas de Cine</em>. UAGRM – FICCT.</li>
+                        <li>Blanco Bautista, L. F. (2026). <em>Agentes de Voz con IA: Cuando el cliente solo tiene que hablar</em>. UAGRM – FICCT.</li>
+                        <li>Puma Claure, E. (2026). <em>Análisis de Audio y Texto: Lumen Cinema</em>. UAGRM – FICCT.</li>
+                    </ol>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>◆ © 2026 Arze Kao Luis Angel ◆</p>
+        <p>Ingeniería de Software 2 • UAGRM - FICCT</p>
+        <p style="font-size: 0.9rem; margin-top: 1rem;">⚡ LUMEN CINEMA - AI PRECISION KIOSK ⚡</p>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
+
+    <script>
+        // Toggle Navigation
+        function toggleNav() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close nav when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Active link highlighting with glow effect
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.toc a').forEach(link => {
+                link.style.color = '';
+                link.style.textShadow = '';
+                link.style.fontWeight = '';
+            });
+
+            if (current) {
+                const activeLink = document.querySelector(`.toc a[href="#${current}"]`);
+                if (activeLink) {
+                    activeLink.style.color = '#00ff88';
+                    activeLink.style.textShadow = '0 0 15px rgba(0, 255, 136, 0.6)';
+                    activeLink.style.fontWeight = '700';
+                }
+            }
+        });
+
+        // Parallax effect on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const sidebar = document.querySelector('.sidebar');
+            if (sidebar) {
+                const moveX = (e.clientX / window.innerWidth) * 10;
+                const moveY = (e.clientY / window.innerHeight) * 10;
+                sidebar.style.transform = `perspective(1000px) rotateY(${moveX}deg) rotateX(${-moveY}deg)`;
+            }
+        });
+    </script>
+</body>
+</html>
